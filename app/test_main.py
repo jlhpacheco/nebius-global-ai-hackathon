@@ -7,8 +7,10 @@ Run from the repo root:
 import os
 import sys
 
-# Demo mode is required for deterministic tests: no Token Factory key.
+# Demo mode is required for deterministic tests: no Token Factory key,
+# and no Tavily key (resource verification must take the local path).
 os.environ.pop("NEBIUS_API_KEY", None)
+os.environ.pop("TAVILY_API_KEY", None)
 
 sys.path.insert(
     0, os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
