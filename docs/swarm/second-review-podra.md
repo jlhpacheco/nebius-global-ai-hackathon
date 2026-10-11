@@ -1,0 +1,48 @@
+# SECOND REVIEW — Podrá Navega (independent score)
+
+**FROM:** Named second reviewer. I did not coordinate with the parallel red team. Standard applied: the round-1 red team's rubric and Oct 18 kill bars.
+
+## 1. Scores
+
+| Criterion | Score |
+|---|---|
+| Technological Implementation | **7/10** |
+| Design | **7/10** |
+| Potential Impact | **8/10** |
+| Quality of the Idea | **8/10** |
+| **Average** | **7.5/10** |
+
+**Technological Implementation — 7/10.** This is a real pipeline, not chunk-and-summarize: intake/classification, draft generation, a stateful approval gate, an escalation pathway, live Tavily tool calls, and a second-pass Ultra reasoning step whose job (missed-barrier detection over the whole case) is genuinely different from the first pass's job. That clears the wrapper bar BoardBrief failed. It does not reach 9–10 because the core language tasks — translate, simplify, draft a question list — are commodity LLM work, and as pitched the Ultra call risks the red team's exact objection to BoardBrief: three tiers doing one model's job in three costumes. The routing becomes load-bearing only with evidence: an annotated case set where Ultra demonstrably catches barriers the Nano/Super draft missed. Without that ablation number, a harsh judge caps Tech at 6.
+
+**Design — 7/10.** The strongest design element in any idea on the shortlist: two named users, two surfaces, one workflow. The patient gets a chat; the navigator gets an approval panel; the product's output is the message the patient actually receives, not a markdown blob someone must rework. The split-screen draft → edit → approve → send moment is legible in seconds with zero narration. It loses points on execution risk and one structural tax: a WhatsApp-style chat is also the most cloned UI shape in the field, so if the build ships in a default framework skin it will read as a demo despite the workflow underneath; and a Spanish-first interface is illegible by default to judges who don't read Spanish (see §3, missed risk).
+
+**Potential Impact — 8/10.** The best impact case available to this entrant, by a wide margin. Named audience (Spanish-speaking LCC patients who don't understand their next steps), a problem that is expensive when it goes wrong (a missed biopsy, a no-show caused by a transport barrier nobody surfaced), a real organization he chairs, a real navigator role the workflow is built around, and a design he settled before the hackathon existed — this is the opposite of impact theater. It is not a 9–10 yet because the rubric's top tier demands evidence that does not exist today: one real user who is not the builder, and one measured before/after. Fictional demo patients are correct on safety and privacy, but on their own they score like every other team's synthetic sample. A navigator running fictional cases on camera, with timings, is what converts 8 → 9.
+
+**Quality of the Idea — 8/10.** The non-obvious insight is real and repeatable in one sentence: *the patient doesn't only need her doctor's words translated — she needs the barrier she didn't mention found before it costs her the appointment.* Proactive missed-barrier detection plus live verification of referrals (clinic hours, transport, support groups checked via Tavily instead of hallucinated) is the same structural move the red team demanded of BoardBrief — verification over generation — applied to a domain where a wrong referral is a real harm. The human-approval gate itself is not the novelty (health copilots are a known genre); the barrier-hunting + verified-referral combination, pitched by the chair of the organization that employs the navigators, is. That credibility moat is un-copyable in this field, and judges reward provenance they can verify.
+
+## 2. Verdict
+
+**PASS WITH FIXES.**
+
+**Honest prize ceiling:** Competitive for the **Best Apps and Agents track prize (Jetson) plus one bonus — the Tavily $3,000 is the most winnable single cash prize here**, because Tavily is load-bearing in this workflow rather than decorative; SF City $500 is the fallback bonus. **3rd Place ($6,000) is the stretch ceiling**, reachable only if the fixes below land — above all the real-navigator evidence and the barrier-catch number. Grand / 2nd are not realistic: per the red team's own prediction (which I endorse), those will likely go to entries whose output is a completed, judge-checkable work product, and "a good message was sent to a fictional patient" is a softer verification than a passed test suite or an executed workflow. A realistic good outcome is ~7.5–8.0 as executed; that is a genuine prize outcome in a 21,107-person field, not a consolation framing.
+
+## 3. Forecasts of the red team's review
+
+*(Marked as forecasts, per brief — I have not seen their Podrá scoring.)*
+
+**Risk they are most likely to OVERWEIGHT — patient safety / medical-advice liability.** I forecast the red team treats "AI touching cancer patients" as near-disqualifying and spends its harshest language there. That overweights the risk for this design: the AI never reaches a patient. Every draft passes a human navigator who can edit or kill it, sensitive cases escalate, and the content scope is information and preparation only — for patient harm, the model *and* the human gate must both fail, which is defense in depth, not a single point of failure. The residual safety risk is real (that's why Fix 1 exists) but it is an engineering checklist item, not a kill argument. If they score safety as if this were an autonomous medical chatbot, they will undersell the entry by roughly a full point on Idea/Impact.
+
+**Risk they are most likely to MISS — judge legibility of Spanish output + Spanish fidelity.** The round-1 rubric's accuracy bar is framed entirely around figures-to-source-page citations; it has no category for "the judges cannot read the product's output language." A Spanish-first demo asks judges to score the accuracy of plain-language medical Spanish most of them cannot verify — what they can't read, they discount, quietly taxing Design and Tech. Symmetrically, nobody on the rubric checks whether Nemotron's Spanish simplification is actually faithful and plain (dialect, reading level, no dropped negations in instructions like "no coma antes de…"). An unfaithful Spanish draft that the navigator doesn't catch is also the one safety failure the approval gate does *not* fully cover, because the gatekeeper may trust the draft's fluency. This is the risk I'd most want measured before Oct 30, and I forecast the red team walks straight past it.
+
+## 4. Minimum fix list (priority order, each ≤1 build day)
+
+1. **Safety scope lock, in-product (1 day).** Hard-coded escalation taxonomy — symptoms, treatment/diagnosis questions, distress, anything outside information/preparation routes to a visible "ESCALATED — human only" state with no AI draft generated at all; a plain-language "this tool does not give medical advice" line in the patient UI. This converts the biggest attack surface into a shown feature in the video.
+2. **Barrier-catch eval + baseline A/B (1 day).** 10–12 fictional cases with planted barriers (transport, cost, childcare, fear, language). Measure and publish: Ultra missed-barrier catch rate, and the same cases run through a single plain chatbot prompt as the baseline. This is the Oct 18 Baseline and Accuracy kill bars applied to Podrá, and it produces the one number ("caught 9 of 11 planted barriers; baseline caught 4") that defends Tech and Idea simultaneously.
+3. **Real navigator evidence (≤1 day of work; scheduling is the risk, start it first).** An actual LCC navigator/coordinator runs 3 fictional cases on camera: draft edit time vs. writing from scratch, plus a 20-second clip or signed quote for the submission. No patient data involved, so the Rights bar is not touched. This is the single highest-leverage fix — it moves Impact 8 → 9 and answers the "so what?" objection before it's asked.
+4. **Bilingual judge legibility (1 day).** English captions throughout the video, English narration, and a UI gloss toggle in the approval panel showing the English rendering beside the Spanish draft, so a judge can verify fidelity live. Directly retires the missed risk in §3.
+5. **Verified-referral badges (1 day).** Every resource the draft cites (clinic, transport, support group) renders with a Tavily-backed status — Verified (with source + check time) / Not found / Unverified — and degrades honestly when Tavily is down. This makes the Tavily bonus claim self-proving on camera and is Podrá's version of the verification layer the red team demanded elsewhere.
+6. **Routing receipts in the README (½ day, after Fix 2).** Exact model IDs, per-tier latency and token cost per case, and the Ultra on/off ablation from the eval. Half a day of writing once the numbers exist; without it Tech stays capped no matter how good the demo looks.
+
+**Kill condition I would hold even as a PASS:** if by Oct 18 there is no end-to-end logged run with ≥2 tiers doing real work (red team Stack bar) *or* the Fix 2 baseline test shows no identifiable advantage over a plain prompt, Podrá dies on the same bar as everything else and ClearRead is the fallback. My PASS assumes the fixes are treated as part of the build, not as polish.
+
+Lesson appended to `~/workspace/lyceum/LESSONS.md` (2026-10-11: score the gate, not just the generator — human-gated health AI splits AI-to-patient risk from AI-to-reviewer risk; Spanish-first demos carry a judge-legibility tax).
