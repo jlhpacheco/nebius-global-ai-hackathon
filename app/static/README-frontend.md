@@ -59,8 +59,10 @@ Example: `python3 -m http.server -d app/static 8000`
 
 ## Design notes
 
-- Warm, calm palette (cream, terracotta, sage) for a cancer-support
-  nonprofit; no default framework skin anywhere.
+- Warm, calm palette matched to Latinas Contra Cancer's brand (cream
+  ground, LCC orange #D16616, navy #112F5B, brand green #04723D — verified
+  Oct 11, 2026; see LCC-STYLE-TOKENS.md); no default framework skin anywhere.
+  The crisis red is deliberately NOT rebranded.
 - Large type (17px base), generous spacing, short bilingual labels — built
   for a dyslexic reader and for judges scanning fast.
 - The patient view shows only a neutral receipt ("Tu mensaje fue recibido")
