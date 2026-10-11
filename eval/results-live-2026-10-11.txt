@@ -1,0 +1,25 @@
+Podrá Navega — LIVE barrier eval [LIVE] (12 fictional cases)
+
+Arm                                           Caught  Planted   Recall
+----------------------------------------------------------------------
+Live pipeline (Super+gloss+Ultra audit)           24       25    96.0%
+No-audit ablation (rules only)                    11       25    44.0%
+Baseline (plain chatbot, 1 Nano call)             19       25    76.0%
+
+Per-barrier (caught/planted):
+Barrier            Pipeline   No-audit   Baseline
+transport               5/5        3/5        5/5
+cost                    4/4        1/4        3/4
+childcare               3/4        3/4        2/4
+work_schedule           2/2        1/2        1/2
+fear                    4/4        2/4        2/4
+language                3/3        1/3        3/3
+health_literacy         3/3        0/3        3/3
+
+Per-case misses (pipeline):
+  case-02 missed: childcare
+
+Model calls: 48 live, 0 fell back to demo responses
+Actual spend at ledger rates (from response usage): $0.035068
+
+Kill bar cleared: live pipeline recall 24/25 >= 50%.
