@@ -1,0 +1,22 @@
+# Render Blueprint — Podrá Navega (free tier)
+# One web service, one process (UI + API). The app is STATELESS by design:
+# no disk and no database are defined here, because a free Render Postgres
+# would expire during the December judging window. Nothing to expire =
+# nothing that can die mid-judging.
+services:
+  - type: web
+    name: podra-navega
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.3"
+      # Secrets: sync: false means "set this value in the Render dashboard,
+      # never in git." The service also runs without them, in demo mode.
+      - key: NEBIUS_API_KEY
+        sync: false
+      - key: TAVILY_API_KEY
+        sync: false
