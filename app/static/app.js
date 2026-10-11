@@ -79,7 +79,7 @@ const GOLDEN_CASE = {
     }
   ],
   ledger: [
-    { model: "nvidia/nemotron-3-nano-30b-a3b", task: "Recepción y clasificación / Intake & triage", tokens: 412, cost: 0.0001 },
+    { model: "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B", task: "Recepción y clasificación / Intake & triage", tokens: 412, cost: 0.0001 },
     { model: "nvidia/nemotron-3-super-120b-a12b", task: "Borrador en lenguaje simple / Plain-language draft", tokens: 1240, cost: 0.0015 },
     { model: "nvidia/Nemotron-3-Ultra-550b-a55b", task: "Auditoría de barreras / Barrier audit", tokens: 2180, cost: 0.0087 },
     { model: "Tavily", task: "Verificación de recursos / Resource verification", tokens: 0, cost: 0.0 }
@@ -109,7 +109,7 @@ const GOLDEN_CRISIS = {
   ],
   resources: [],
   ledger: [
-    { model: "nvidia/nemotron-3-nano-30b-a3b", task: "Clasificador de seguridad / Safety classifier", tokens: 96, cost: 0.0000 }
+    { model: "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B", task: "Clasificador de seguridad / Safety classifier", tokens: 96, cost: 0.0000 }
   ],
   approval: null
 };

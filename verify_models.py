@@ -21,11 +21,13 @@ import urllib.request
 
 MODELS_URL = "https://api.tokenfactory.nebius.com/v1/models"
 
-# The three Nemotron tiers this project plans to use, as planned IDs.
+# The three Nemotron tiers this project uses — exact ID strings as
+# returned by GET /v1/models, live-verified Oct 11, 2026. (The Nano ID's
+# casing differs from the lowercase form in most public write-ups.)
 # Matching against the API response is case-insensitive; the API's own
 # casing is what gets printed and what should go into the app config.
 EXPECTED_MODELS = [
-    "nvidia/nemotron-3-nano-30b-a3b",
+    "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
     "nvidia/nemotron-3-super-120b-a12b",
     "nvidia/Nemotron-3-Ultra-550b-a55b",
 ]

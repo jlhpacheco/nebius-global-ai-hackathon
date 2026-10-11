@@ -24,8 +24,10 @@ from datetime import datetime, timezone
 
 BASE_URL = "https://api.tokenfactory.nebius.com/v1/"
 
+# Exact IDs as returned by GET /v1/models — live-verified Oct 11, 2026.
+# Casing matters: the Nano ID is NOT the lowercase form used in blogs.
 MODELS = {
-    "nano": "nvidia/nemotron-3-nano-30b-a3b",
+    "nano": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
     "super": "nvidia/nemotron-3-super-120b-a12b",
     "ultra": "nvidia/Nemotron-3-Ultra-550b-a55b",
 }

@@ -26,10 +26,13 @@ not part of this backend package.
 
 ## Model routing (token_factory.py)
 
+Model IDs below are the exact strings returned by `GET /v1/models` —
+live-verified Oct 11, 2026. Casing matters (notably the Nano ID).
+
 | Step | Model | Job |
 |---|---|---|
 | Draft reply | Super `nvidia/nemotron-3-super-120b-a12b` | Plain-language reply in the patient's language |
-| English gloss | Nano `nvidia/nemotron-3-nano-30b-a3b` | Faithful English rendering so non-Spanish judges can verify |
+| English gloss | Nano `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` | Faithful English rendering so non-Spanish judges can verify |
 | Barrier audit | Ultra `nvidia/Nemotron-3-Ultra-550b-a55b` | ONE pass on condensed context: audit the case against the barrier taxonomy |
 
 Every call appends to the cost ledger (model, tokens in/out, estimated

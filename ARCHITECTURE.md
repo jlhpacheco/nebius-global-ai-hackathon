@@ -10,6 +10,10 @@ Browser (single polished page, no build step)
      -> Nebius Token Factory API (OpenAI-compatible, NEBIUS_API_KEY in env)
         - Nemotron Nano / Super: volume work (summaries, drafts, classification)
         - Nemotron 3 Ultra: one hard reasoning step per workflow
+        - Exact model IDs (live-verified against GET /v1/models, Oct 11, 2026):
+          Nano `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B`,
+          Super `nvidia/nemotron-3-super-120b-a12b`,
+          Ultra `nvidia/Nemotron-3-Ultra-550b-a55b`
      -> Tavily API: web grounding where genuinely functional
 ```
 
