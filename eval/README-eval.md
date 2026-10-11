@@ -6,6 +6,34 @@ of the barriers planted in a patient's message does each approach
 actually catch — including the barriers the patient never stated
 directly?
 
+## LIVE RESULTS — Oct 11, 2026 (real Nemotron, Nebius Token Factory)
+
+The live run has happened. The real pipeline (Nemotron via Nebius
+Token Factory), a real single-prompt plain-chatbot baseline, and the
+no-audit ablation were run through **this same harness and case
+file** (`run_live_eval.py`; raw output in
+`results-live-2026-10-11.txt`; plan in `LIVE-RUN-PLAN.md`):
+
+| Detector | Caught | Planted | Catch rate |
+|---|---|---|---|
+| **Live pipeline (Super + gloss + Ultra audit)** | **24** | **25** | **96.0%** |
+| Baseline (plain chatbot, 1 Nano call per case) | 19 | 25 | 76.0% |
+| Pipeline WITHOUT audit (ablation) | 11 | 25 | 44.0% |
+
+- **Actual spend: $0.035068** (48 live calls, at ledger rates from
+  response usage). 0 calls fell back to demo responses.
+- **Kill bar cleared:** the red team's live-run bar was barrier
+  recall ≥ 50%; the live pipeline scored 96.0%.
+- **The Ultra audit is load-bearing, not decoration:** removing it
+  drops recall from 24/25 to 11/25 — the audit pass is worth
+  **+13 barriers**.
+- The pipeline's only miss was one implied childcare barrier
+  (case-02).
+- Honest note: the real chatbot baseline (19/25) is far stronger
+  than the demo-mode naive matcher below (10/25). The demo baseline
+  understated the competition; the live gap (96.0% vs 76.0%) is the
+  number to quote.
+
 ## How to re-run
 
 ```bash
@@ -49,7 +77,12 @@ work_schedule, fear, language, health_literacy — each with:
    reliably surfaces: what was said with the obvious word, and
    nothing that was merely implied.
 
-## Current results (real output of `run_eval.py`, Oct 11, 2026)
+## Demo-mode results (real output of `run_eval.py`, Oct 11, 2026) — SUPERSEDED
+
+> These are the original **demo-mode stand-in** numbers (rule-based
+> detectors, no model calls). They are kept for the record and are
+> **superseded by the LIVE RESULTS above**. Do not quote these as
+> the product's measured performance.
 
 | Detector | Caught | Planted | Catch rate |
 |---|---|---|---|
@@ -57,7 +90,7 @@ work_schedule, fear, language, health_literacy — each with:
 | Pipeline WITHOUT audit (ablation) | 13 | 25 | 52.0% |
 | Baseline (naive keywords) | 10 | 25 | 40.0% |
 
-Reading: the audit sweep is worth +48 points over pass 1 alone, and
+Reading (demo mode): the audit sweep is worth +48 points over pass 1 alone, and
 the full pipeline catches 2.5× the baseline. The baseline's misses are
 concentrated exactly where the product claims value: implied
 transport, paycheck-timing cost, shame/hidden fear, and reading
@@ -65,11 +98,17 @@ difficulty stated without the words "I don't understand."
 
 ## The honest caveats — read these before quoting the number
 
-1. **Both detectors are rule-based demo-mode stand-ins.** No Nemotron
+1. **Both detectors in the demo-mode table are rule-based
+   stand-ins.** *(Resolved Oct 11, 2026: the Token Factory API key
+   was connected and the live run was executed through this same
+   harness and case file — see LIVE RESULTS at the top. The live
+   numbers supersede the demo-mode table, as promised here. The
+   team-authored case-set caveat in #2 still applies to the live
+   run.)* Original text of this caveat, for the record: "No Nemotron
    call is measured here yet. When the Token Factory API key is
    connected, the live pipeline (Nano/Super pass + Ultra audit) and a
    real single-prompt chatbot baseline get run through **this same
-   harness and case file**, and the live numbers replace these.
+   harness and case file**, and the live numbers replace these."
 2. **The case set was authored by the same team that wrote the
    detectors.** A 100% pipeline score on a self-authored set proves
    the harness and the implication rules work as designed; it does
