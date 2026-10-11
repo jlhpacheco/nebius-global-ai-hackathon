@@ -7,20 +7,25 @@
   --ink: #33261e;
   --muted: #7d6c5e;
   --line: #e9dccb;
-  --accent: #b34724;        /* warm terracotta */
-  --accent-dark: #8f3418;
-  --accent-soft: #f9e7da;
-  --sage: #56724c;           /* calm green for "verified / sent" */
-  --sage-soft: #e7efe0;
+  /* Brand tokens — Latinas Contra Cancer, verified Oct 11, 2026 from the
+     live site's own inline SVG markup (see LCC-STYLE-TOKENS.md):
+     orange #D16616, navy #112F5B, green #04723D. Derived shades are marked. */
+  --accent: #d16616;         /* LCC brand orange (verified) */
+  --accent-dark: #a35011;    /* derived: accent darkened ~22% */
+  --accent-soft: #faede3;    /* derived: accent tinted ~88% toward white */
+  --navy: #112f5b;           /* LCC brand navy (verified) — headings, footer */
+  --sage: #04723d;           /* LCC brand green (verified) — "verified / sent" */
+  --sage-soft: #e6f1ec;      /* derived: sage tinted ~90% toward white */
+  --sage-dark: #034a28;      /* derived: sage darkened ~35%, text on soft */
   --gold: #c98f1b;
   --gold-soft: #faf0d7;
-  --red: #a91f16;
+  --red: #a91f16;            /* crisis red — NEVER rebranded (hard rule) */
   --red-bg: #fdecea;
   --red-line: #e8a49e;
   --wa-bg: #eee6d8;          /* chat backdrop */
   --wa-in: #ffffff;          /* navigator reply bubble */
   --wa-out: #dceec9;         /* patient bubble */
-  --shadow: 0 10px 30px rgba(84, 52, 30, 0.12);
+  --shadow: 0 10px 30px rgba(17, 47, 91, 0.12);
   --radius: 16px;
 }
 
@@ -48,11 +53,22 @@ body {
   border-bottom: 3px solid var(--accent);
 }
 
+/* LCC rhythm: small-caps eyebrow kicker above the statement headline. */
+.brand .eyebrow {
+  margin: 0 0 0.2rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+}
+
 .brand h1 {
   margin: 0;
   font-size: 1.55rem;
   line-height: 1.2;
   letter-spacing: 0.01em;
+  color: var(--navy);
 }
 .brand h1 .navega { color: var(--accent); }
 
@@ -99,18 +115,21 @@ textarea:focus-visible, select:focus-visible {
   outline-offset: 2px;
 }
 
+/* Approve = the commit action, styled as LCC's primary CTA:
+   orange fill, white bold label, modest radius — kept full-width and
+   larger than every secondary button so it stays unmistakable. */
 .btn-primary {
-  background: var(--sage);
-  border-color: var(--sage);
+  background: var(--accent);
+  border-color: var(--accent);
   color: #fff;
   font-size: 1.08rem;
   padding: 0.75rem 1.6rem;
   width: 100%;
 }
-.btn-primary:hover:not(:disabled) { background: #47603e; }
+.btn-primary:hover:not(:disabled) { background: var(--accent-dark); border-color: var(--accent-dark); }
 .btn-primary:disabled {
-  background: #b9beb4;
-  border-color: #b9beb4;
+  background: #bdb7ad;
+  border-color: #bdb7ad;
   color: #f4f4f0;
   cursor: not-allowed;
 }
@@ -162,6 +181,7 @@ label { font-weight: 700; display: block; margin-bottom: 0.3rem; }
 .panel h2 {
   margin: 0 0 0.2rem;
   font-size: 1.3rem;
+  color: var(--navy);
 }
 .panel .panel-sub { margin: 0 0 1rem; color: var(--muted); font-size: 0.95rem; }
 .synthetic-note {
@@ -174,6 +194,7 @@ section.block { margin-top: 1.3rem; }
 section.block h3 {
   margin: 0 0 0.5rem;
   font-size: 1.05rem;
+  color: var(--navy);
   border-bottom: 2px solid var(--line);
   padding-bottom: 0.3rem;
 }
@@ -214,7 +235,7 @@ section.block h3 {
 .state-badge.st-drafted,
 .state-badge.st-pending { background: var(--gold-soft); border-color: var(--gold); color: #6d4c07; }
 .state-badge.st-escalated { background: var(--red-bg); border-color: var(--red); color: var(--red); }
-.state-badge.st-approved { background: var(--sage-soft); border-color: var(--sage); color: #33482c; }
+.state-badge.st-approved { background: var(--sage-soft); border-color: var(--sage); color: var(--sage-dark); }
 
 .fictional-pill {
   font-size: 0.85rem;
@@ -318,7 +339,7 @@ section.block h3 {
 .resource-item .r-meta { color: var(--muted); font-size: 0.9rem; display: block; }
 .resource-item .r-state { font-weight: 800; font-size: 0.88rem; }
 .resource-item.unverified .r-state { color: #8a6104; }
-.resource-item.verified .r-state { color: #33482c; }
+.resource-item.verified .r-state { color: var(--sage-dark); }
 
 /* ---------- approve gate ---------- */
 
@@ -329,7 +350,7 @@ section.block h3 {
   margin: 0.8rem 0;
 }
 .approve-reason.blocked { background: var(--gold-soft); border: 1.5px solid var(--gold); color: #6d4c07; }
-.approve-reason.ready   { background: var(--sage-soft); border: 1.5px solid var(--sage); color: #33482c; }
+.approve-reason.ready   { background: var(--sage-soft); border: 1.5px solid var(--sage); color: var(--sage-dark); }
 
 .approval-record {
   background: var(--sage-soft);
@@ -400,3 +421,18 @@ section.block h3 {
 .new-case select { width: auto; }
 
 .empty-note { color: var(--muted); font-style: italic; }
+
+/* ---------- footer band (LCC structure: very dark footer, white text,
+   orange accent rule) ---------- */
+
+.site-footer {
+  background: var(--navy);
+  border-top: 4px solid var(--accent);
+  color: #fff;
+  text-align: center;
+  padding: 1.15rem 1.4rem 1.3rem;
+}
+.site-footer p { margin: 0; }
+.site-footer .foot-main { font-size: 1rem; }
+.site-footer .foot-main strong { color: #fff; }
+.site-footer .foot-note { margin-top: 0.35rem; font-size: 0.88rem; opacity: 0.85; }
