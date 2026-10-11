@@ -243,7 +243,10 @@ function normalizeCase(raw) {
       source: pick(x, ["source", "source_name", "source_url", "url"], ""),
       url: pick(x, ["url", "link", "source_url"], ""),
       lastChecked: pick(x, ["last_checked", "checked_at", "verified_at", "last_verified"], ""),
-      verified: Boolean(x.verified)
+      verified: Boolean(x.verified),
+      verifiedVia: pick(x, ["verified_via"], ""),
+      verifiedAt: pick(x, ["checked_at", "verified_at"], ""),
+      evidence: pick(x, ["evidence"], "")
     })),
     ledger: (ledgerRaw || []).map((l) => ({
       model: pick(l, ["model", "name"], "—"),
@@ -312,6 +315,16 @@ function renderBarriers(c) {
   els.barrierEmpty.hidden = c.barriers.length > 0;
 }
 
+function verifiedLabel(r) {
+  // Honest source label (Fix #5): say WHICH check verified the resource.
+  if (r.verifiedVia === "tavily") {
+    const when = r.verifiedAt ? " · " + String(r.verifiedAt).slice(0, 16).replace("T", " ") + " UTC" : "";
+    return "✓ Verificado vía Tavily / Verified via Tavily" + when;
+  }
+  if (r.verifiedVia === "local_cache") return "✓ Verificado / Verified · Lista local / Local list";
+  return "✓ Verificado / Verified";
+}
+
 function renderResources(c) {
   els.resourceList.innerHTML = c.resources.map((r, i) =>
     `<li class="resource-item ${r.verified ? "verified" : "unverified"}">` +
@@ -321,7 +334,7 @@ function renderResources(c) {
     (r.detail ? `<span class="r-meta">${esc(r.detail)}</span>` : "") +
     `<span class="r-meta">Fuente / Source: ${esc(r.source || "—")}` +
     (r.lastChecked ? ` · Revisado / Checked: ${esc(r.lastChecked)}` : "") + `</span>` +
-    `<span class="r-state">${r.verified ? "✓ Verificado / Verified" : "Sin verificar / Not verified"}</span></div></li>`
+    `<span class="r-state">${r.verified ? esc(verifiedLabel(r)) : "Sin verificar / Not verified"}</span></div></li>`
   ).join("");
   els.resourceEmpty.hidden = c.resources.length > 0;
   els.resourceList.querySelectorAll('input[type="checkbox"]').forEach((box) => {
