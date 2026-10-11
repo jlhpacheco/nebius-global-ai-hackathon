@@ -59,6 +59,37 @@ Approval is enforced server-side (not just in the UI):
 - Case not in `PENDING_APPROVAL` → `409`
 - Any attached resource still `verified: false` → `409`
 
+## Resource verification (Tavily) — `tavily_verify.py`
+
+Verifying a resource is a real check, not a checkbox ritual, and the
+app labels honestly which check actually ran:
+
+- **`TAVILY_API_KEY` set** → the verify call runs a Tavily *search*
+  restricted to the resource's own domain. A matching result marks the
+  resource verified and stores `verified_via: "tavily"`, a `checked_at`
+  timestamp, and an `evidence` snippet (result title + text) on the
+  resource. If Tavily answers but finds no matching source, the
+  resource stays **unverified** with the "Not found" evidence stored —
+  approval stays blocked. Search (not extract) is used because the
+  question is "does this source exist on the live web and what does it
+  say?" — search confirms it in Tavily's live index and returns the
+  evidence snippet without fetching whole pages.
+- **Tavily unreachable** (network/HTTP error) → the navigator's manual
+  verification stands, labeled `verified_via: "local_cache"` with an
+  evidence note saying the Tavily check was unavailable. An outage can
+  never kill the demo, and the label never fakes a Tavily verdict.
+- **No key (demo mode)** → no network call; the navigator's manual
+  verification against the local directory is labeled
+  `verified_via: "local_cache"`.
+
+Verdicts from completed Tavily calls are cached in memory per
+`source_url`: a case attaches at most 3 resources, so verification
+costs **at most 3 Tavily calls per case**, and repeat verifications of
+the same URL — in this case or later ones — are free. Transport errors
+are not cached, so a retry can succeed. `GET /api/health` reports
+`tavily_enabled`. The frontend badge shows the source ("Verified via
+Tavily · <time>" vs. "Verified · Local list").
+
 ## Endpoints
 
 | Method | Path | Purpose |
@@ -68,7 +99,7 @@ Approval is enforced server-side (not just in the UI):
 | GET | `/api/cases` | List all cases |
 | GET | `/api/cases/{id}` | One case (draft, barriers, resources, history) |
 | POST | `/api/cases/{id}/edit` | Navigator edits the draft: `{reply?, reply_en?, question_list?}` |
-| POST | `/api/cases/{id}/verify-resource` | Mark one resource verified: `{index}` |
+| POST | `/api/cases/{id}/verify-resource` | Verify one resource: `{index}` — Tavily check when a key is set (a "not found" leaves it unverified), else navigator verification labeled `local_cache` |
 | POST | `/api/cases/{id}/approve` | Approve + send (409 while anything is unverified or case is escalated) |
 | GET | `/api/ledger` | All token/cost ledger entries + totals |
 
@@ -87,10 +118,18 @@ Approval is enforced server-side (not just in the UI):
 ## Tests
 
 ```bash
-python -m pytest app/test_main.py -v
+python -m pytest app/test_main.py app/test_tavily.py -v
 ```
 
-Covers: health, golden-case seed, crisis → ESCALATED with no draft,
-medical-advice → ESCALATED with no draft, routine → draft + barriers,
-approve blocked (409) with an unverified resource, approve succeeds
-after verifying all resources, edit, and ledger entries.
+`test_main.py` covers: health, golden-case seed, crisis → ESCALATED
+with no draft, medical-advice → ESCALATED with no draft, routine →
+draft + barriers, approve blocked (409) with an unverified resource,
+approve succeeds after verifying all resources, edit, and ledger
+entries.
+
+`test_tavily.py` covers resource verification with the Tavily HTTP
+call mocked (no network, no real key): a mocked Tavily hit marks
+`verified_via: "tavily"` and stores `checked_at` (and repeat verifies
+hit the cache, not the API); with no key the label is `local_cache`;
+a Tavily "not found" keeps the resource unverified; and approval
+stays blocked until every resource is verified.
