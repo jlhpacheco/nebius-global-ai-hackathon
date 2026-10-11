@@ -3,6 +3,7 @@
 Entrant: Jose Luis Pacheco (Devpost: [jlpacheco](https://devpost.com/jlpacheco))
 Hackathon: [Nebius x NVIDIA Global AI Hackathon](https://nebiusglobalaihackathon.devpost.com/)
 Status: **Use-case selection in progress — app not yet built. This repo is PRIVATE during development and will be made public before submission, as the rules require a publicly accessible repository.**
+Navigator decision (Oct 11, 2026): **synthetic navigator only** — the demo navigator is a labeled synthetic persona; see `docs/DECISION-synthetic-navigator.md`.
 
 ## Deadline
 
