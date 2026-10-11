@@ -111,6 +111,18 @@ def is_demo_mode() -> bool:
     return not os.environ.get("NEBIUS_API_KEY")
 
 
+def transport_mode() -> str:
+    """Optional alternate transport, env-gated (default: off).
+
+    "surrogate" routes chat() through app.surrogate_transport — the
+    vault-backed path used by the headless live eval, where the key
+    exists only as a Secure Vault connector and no raw NEBIUS_API_KEY
+    is available. Any other value (including unset) keeps the standard
+    behavior: demo mode with no key, OpenAI client with one.
+    """
+    return os.environ.get("PODRA_TF_TRANSPORT", "").strip().lower()
+
+
 def _get_client():
     global _client
     if _client is None:
@@ -143,6 +155,40 @@ def chat(
     A missing key NEVER raises.
     """
     prompt_text = "\n".join(m.get("content", "") for m in messages)
+
+    if transport_mode() == "surrogate":
+        # Vault-surrogate transport (headless eval path). Same ledger
+        # contract as the live client path; same degrade-to-demo
+        # behavior on any failure.
+        model = MODELS[model_key]
+        try:
+            from . import surrogate_transport
+
+            text, s_tokens_in, s_tokens_out = surrogate_transport.surrogate_chat(
+                model=model,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+            )
+            LEDGER.append(
+                case_id=case_id,
+                stage=stage,
+                model=model,
+                tokens_in=s_tokens_in or estimate_tokens(prompt_text),
+                tokens_out=s_tokens_out or estimate_tokens(text),
+                demo_mode=False,
+            )
+            return text or demo_response
+        except Exception:
+            LEDGER.append(
+                case_id=case_id,
+                stage=stage + ":fallback",
+                model="demo-mode",
+                tokens_in=estimate_tokens(prompt_text),
+                tokens_out=estimate_tokens(demo_response),
+                demo_mode=True,
+            )
+            return demo_response
 
     if is_demo_mode():
         LEDGER.append(
