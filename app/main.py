@@ -35,6 +35,7 @@ if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
 from . import barriers as barriers_mod  # noqa: E402
+from . import tavily_verify  # noqa: E402
 from . import token_factory  # noqa: E402
 from .safety_fallback import classify_message_fallback  # noqa: E402
 from .store import STORE  # noqa: E402
@@ -234,6 +235,7 @@ def health() -> dict:
         "status": "ok",
         "service": "podra-navega",
         "demo_mode": token_factory.is_demo_mode(),
+        "tavily_enabled": tavily_verify.tavily_enabled(),
         "models": token_factory.MODELS,
         "time": _now(),
     }
@@ -333,8 +335,23 @@ def verify_resource(case_id: str, req: VerifyResourceRequest) -> dict:
         raise HTTPException(status_code=404, detail="case not found")
     if req.index < 0 or req.index >= len(case["resources"]):
         raise HTTPException(status_code=404, detail="resource index out of range")
-    case["resources"][req.index]["verified"] = True
-    case["resources"][req.index]["verified_at"] = _now()
+    resource = case["resources"][req.index]
+    # Resource verification (Fix #5): with a TAVILY_API_KEY set, the
+    # resource is checked against the live web via Tavily and Tavily's
+    # verdict is stored (verified_via/checked_at/evidence); a Tavily
+    # "not found" leaves the resource unverified, so approval stays
+    # blocked. Without a key (demo mode), the navigator's manual
+    # verification against the local directory stands and is labeled
+    # verified_via="local_cache" — the app never claims a Tavily check
+    # it did not perform. The approval gate itself is unchanged.
+    outcome = tavily_verify.verify_resource(resource)
+    resource["verified"] = outcome["verified"]
+    resource["verified_via"] = outcome["verified_via"]
+    if outcome["checked_at"]:
+        resource["checked_at"] = outcome["checked_at"]
+    if outcome["evidence"] is not None:
+        resource["evidence"] = outcome["evidence"]
+    resource["verified_at"] = _now()
     return STORE.update(case)
 
 
