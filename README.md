@@ -13,7 +13,7 @@ Built for the [Nebius x NVIDIA Global AI Hackathon](https://nebiusglobalaihackat
 
 ## Demo video
 
-**https://www.youtube.com/watch?v=RXGDiJFIHnk** (2:54, public)
+**https://www.youtube.com/watch?v=RXGDiJFIHnk** (2:51, public)
 
 The voiceover is the author, a real person. Elena, the demo navigator, is synthetic — see Safety and scope below.
 
