@@ -20,20 +20,20 @@ const GOLDEN_CASE = {
   id: "GOLDEN-001",
   state: "PENDING_APPROVAL",
   patient_message:
-    "Me dijeron que necesito una biopsia y no entiendo bien qué es. " +
-    "No tengo transporte para llegar a la clínica y me da miedo.",
-  language: "es",
+    "They told me I need a biopsy and I don't really understand what it is. " +
+    "I don't have a ride to get to the clinic and I'm scared.",
+  language: "en",
   draft_text:
-    "Hola, soy el equipo de navegación de Latinas Contra Cancer. " +
-    "Entendemos que esto puede dar miedo, y estamos aquí para ayudar.\n\n" +
-    "Una biopsia es una prueba donde el médico toma una muestra muy pequeña de tejido para revisarla. " +
-    "Su navegadora puede explicarle los detalles con calma antes de su cita.\n\n" +
-    "Preguntas que puede hacer a su médico:\n" +
-    "1. ¿Por qué necesito esta biopsia?\n" +
-    "2. ¿Cuánto dura la prueba?\n" +
-    "3. ¿Cuándo y cómo recibo los resultados?\n\n" +
-    "Sobre el transporte: hay un servicio de transporte comunitario que puede llevarla a su cita. " +
-    "Su navegadora confirmará el horario con usted.",
+    "Hello, this is the navigation team at Latinas Contra Cancer. " +
+    "We understand this can feel frightening, and we are here to help.\n\n" +
+    "A biopsy is a test where the doctor takes a very small sample of tissue to examine it. " +
+    "Your navigator can explain the details calmly before your appointment.\n\n" +
+    "Questions you can ask your doctor:\n" +
+    "1. Why do I need this biopsy?\n" +
+    "2. How long does the test take?\n" +
+    "3. When and how do I receive the results?\n\n" +
+    "About transport: a community ride service can take you to your appointment. " +
+    "Your navigator will confirm the schedule with you.",
   draft_en:
     "Hello, this is the navigation team at Latinas Contra Cancer. " +
     "We understand this can feel frightening, and we are here to help.\n\n" +
@@ -47,42 +47,42 @@ const GOLDEN_CASE = {
     "Your navigator will confirm the schedule with you.",
   barriers: [
     {
-      label: "Comprensión / Understanding",
-      evidence: "«no entiendo bien qué es»",
-      source: "Primer borrador / First draft"
+      label: "Understanding / Comprensión",
+      evidence: "«I don't really understand what it is»",
+      source: "First draft / Primer borrador"
     },
     {
-      label: "Transporte / Transport",
-      evidence: "«No tengo transporte para llegar a la clínica»",
-      source: "Primer borrador / First draft"
+      label: "Transport / Transporte",
+      evidence: "«I don't have a ride to get to the clinic»",
+      source: "First draft / Primer borrador"
     },
     {
-      label: "Miedo / Fear",
-      evidence: "«me da miedo»",
-      source: "Auditoría Ultra / Ultra audit"
+      label: "Fear / Miedo",
+      evidence: "«I'm scared»",
+      source: "Ultra audit / Auditoría Ultra"
     }
   ],
   resources: [
     {
-      name: "Transporte comunitario para citas médicas / Community medical rides",
-      detail: "Viajes a citas en San José y Campbell. Hay que reservar con 2 días de aviso.",
-      source: "Directorio de recursos LCC (ejemplo)",
+      name: "Community medical rides / Transporte comunitario para citas médicas",
+      detail: "Rides to appointments in San José and Campbell. Book 2 days ahead. / Viajes a citas en San José y Campbell. Hay que reservar con 2 días de aviso.",
+      source: "LCC resource directory (sample) / Directorio de recursos LCC (ejemplo)",
       last_checked: "2026-10-10",
       verified: false
     },
     {
-      name: "Grupo de apoyo en español / Spanish-language support group",
-      detail: "Se reúne los jueves por la tarde. Grupo abierto, sin costo.",
-      source: "Calendario LCC (ejemplo)",
+      name: "Spanish-language support group / Grupo de apoyo en español",
+      detail: "Meets Thursday afternoons. Open group, no cost. / Se reúne los jueves por la tarde. Grupo abierto, sin costo.",
+      source: "LCC calendar (sample) / Calendario LCC (ejemplo)",
       last_checked: "2026-10-09",
       verified: true
     }
   ],
   ledger: [
-    { model: "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B", task: "Recepción y clasificación / Intake & triage", tokens: 412, cost: 0.0001 },
-    { model: "nvidia/nemotron-3-super-120b-a12b", task: "Borrador en lenguaje simple / Plain-language draft", tokens: 1240, cost: 0.0015 },
-    { model: "nvidia/Nemotron-3-Ultra-550b-a55b", task: "Auditoría de barreras / Barrier audit", tokens: 2180, cost: 0.0087 },
-    { model: "Tavily", task: "Verificación de recursos / Resource verification", tokens: 0, cost: 0.0 }
+    { model: "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B", task: "Intake & triage / Recepción y clasificación", tokens: 412, cost: 0.0001 },
+    { model: "nvidia/nemotron-3-super-120b-a12b", task: "Plain-language draft / Borrador en lenguaje simple", tokens: 1240, cost: 0.0015 },
+    { model: "nvidia/Nemotron-3-Ultra-550b-a55b", task: "Barrier audit / Auditoría de barreras", tokens: 2180, cost: 0.0087 },
+    { model: "Tavily", task: "Resource verification / Verificación de recursos", tokens: 0, cost: 0.0 }
   ],
   approval: null
 };
@@ -93,23 +93,23 @@ const GOLDEN_CRISIS = {
   escalation: {
     kind: "crisis",
     reason:
-      "Mensaje de crisis: fiebre durante quimioterapia. Sin borrador. La paciente ve el aviso de emergencia y el caso pasa a la navegadora ahora. / " +
-      "Crisis message: fever during chemotherapy. No draft. The patient sees the emergency notice and the case goes to the navigator now."
+      "Crisis message: fever during chemotherapy. No draft. The patient sees the emergency notice and the case goes to the navigator now. / " +
+      "Mensaje de crisis: fiebre durante quimioterapia. Sin borrador. La paciente ve el aviso de emergencia y el caso pasa a la navegadora ahora."
   },
-  patient_message: "Tengo fiebre de 39 grados y estoy en quimioterapia. ¿Qué medicina puedo tomar?",
-  language: "es",
+  patient_message: "I have a fever of 39 degrees and I'm on chemotherapy. What medicine can I take?",
+  language: "en",
   draft_text: "",
   draft_en: "",
   barriers: [
     {
-      label: "Crisis / Crisis — fiebre en quimioterapia",
-      evidence: "«Tengo fiebre de 39 grados y estoy en quimioterapia»",
-      source: "Clasificador de seguridad / Safety classifier"
+      label: "Crisis / Crisis — fever during chemotherapy",
+      evidence: "«I have a fever of 39 degrees and I'm on chemotherapy»",
+      source: "Safety classifier / Clasificador de seguridad"
     }
   ],
   resources: [],
   ledger: [
-    { model: "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B", task: "Clasificador de seguridad / Safety classifier", tokens: 96, cost: 0.0000 }
+    { model: "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B", task: "Safety classifier / Clasificador de seguridad", tokens: 96, cost: 0.0000 }
   ],
   approval: null
 };
@@ -156,14 +156,14 @@ function setStatus(msg) { els.statusLine.textContent = msg || ""; }
 /* ============================== normalization ============================== */
 
 const BARRIER_LABELS = {
-  transport: "Transporte / Transport",
-  cost: "Costo / Cost",
-  childcare: "Cuidado de niños / Childcare",
-  work_schedule: "Horario de trabajo / Work schedule",
-  fear: "Miedo / Fear",
-  language: "Idioma / Language",
-  health_literacy: "Comprensión / Understanding",
-  other: "Otro / Other"
+  transport: "Transport / Transporte",
+  cost: "Cost / Costo",
+  childcare: "Childcare / Cuidado de niños",
+  work_schedule: "Work schedule / Horario de trabajo",
+  fear: "Fear / Miedo",
+  language: "Language / Idioma",
+  health_literacy: "Understanding / Comprensión",
+  other: "Other / Otro"
 };
 
 function composeDraft(text, questions) {
@@ -202,7 +202,7 @@ function normalizeCase(raw) {
   if (approval && approval.edits === undefined && typeof approval.navigator_edited === "boolean") {
     approval = Object.assign({}, approval, {
       edits: approval.navigator_edited
-        ? "La navegadora editó el borrador antes de aprobar. / The navigator edited the draft before approving."
+        ? "The navigator edited the draft before approving. / La navegadora editó el borrador antes de aprobar."
         : ""
     });
   }
@@ -229,16 +229,16 @@ function normalizeCase(raw) {
     crisis: isCrisis,
     escalationReason: escReason,
     patientMessage: pick(r, ["patient_message", "message", "patient_text"], ""),
-    language: pick(r, ["language", "lang"], "es"),
+    language: pick(r, ["language", "lang"], "en"),
     draft: draftText,
     gloss: glossText,
     barriers: (Array.isArray(barriersRaw) ? barriersRaw : []).map((b) => ({
-      label: b.barrier ? (BARRIER_LABELS[b.barrier] || b.barrier) : pick(b, ["label", "name", "type"], "Barrera / Barrier"),
+      label: b.barrier ? (BARRIER_LABELS[b.barrier] || b.barrier) : pick(b, ["label", "name", "type"], "Barrier / Barrera"),
       evidence: pick(b, ["evidence", "quote", "text"], ""),
-      source: pick(b, ["source", "found_by", "detected_by"], b.barrier ? "Auditoría de barreras / Barrier audit" : "")
+      source: pick(b, ["source", "found_by", "detected_by"], b.barrier ? "Barrier audit / Auditoría de barreras" : "")
     })),
     resources: (resourcesRaw || []).map((x) => ({
-      name: pick(x, ["name", "title"], "Recurso / Resource"),
+      name: pick(x, ["name", "title"], "Resource / Recurso"),
       detail: pick(x, ["detail", "description", "notes", "type"], ""),
       source: pick(x, ["source", "source_name", "source_url", "url"], ""),
       url: pick(x, ["url", "link", "source_url"], ""),
@@ -262,10 +262,10 @@ function normalizeCase(raw) {
 /* ============================== rendering ============================== */
 
 const STATE_LABELS = {
-  DRAFTED: "BORRADOR / DRAFTED",
-  PENDING_APPROVAL: "ESPERANDO APROBACIÓN / PENDING APPROVAL",
-  ESCALATED: "ESCALADO / ESCALATED",
-  APPROVED_SENT: "APROBADO Y ENVIADO / APPROVED & SENT"
+  DRAFTED: "DRAFTED / BORRADOR",
+  PENDING_APPROVAL: "PENDING APPROVAL / ESPERANDO APROBACIÓN",
+  ESCALATED: "ESCALATED / ESCALADO",
+  APPROVED_SENT: "APPROVED & SENT / APROBADO Y ENVIADO"
 };
 const STATE_CLASS = {
   DRAFTED: "st-drafted", PENDING_APPROVAL: "st-pending",
@@ -276,10 +276,10 @@ function renderCase() {
   const c = currentCase;
   if (!c) return;
 
-  els.caseIdText.textContent = "Caso / Case " + c.id;
+  els.caseIdText.textContent = "Case / Caso " + c.id;
   els.stateBadge.textContent = STATE_LABELS[c.state] || c.state;
   els.stateBadge.className = "state-badge " + (STATE_CLASS[c.state] || "");
-  els.modeBadge.textContent = mode === "golden" ? "Ejemplo / Golden sample" : "En vivo / Live";
+  els.modeBadge.textContent = mode === "golden" ? "Golden sample / Ejemplo" : "Live / En vivo";
 
   // Escalation
   els.escalationBox.hidden = !c.escalated;
@@ -319,22 +319,22 @@ function verifiedLabel(r) {
   // Honest source label (Fix #5): say WHICH check verified the resource.
   if (r.verifiedVia === "tavily") {
     const when = r.verifiedAt ? " · " + String(r.verifiedAt).slice(0, 16).replace("T", " ") + " UTC" : "";
-    return "✓ Verificado vía Tavily / Verified via Tavily" + when;
+    return "✓ Verified via Tavily / Verificado vía Tavily" + when;
   }
-  if (r.verifiedVia === "local_cache") return "✓ Verificado / Verified · Lista local / Local list";
-  return "✓ Verificado / Verified";
+  if (r.verifiedVia === "local_cache") return "✓ Verified / Verificado · Local list / Lista local";
+  return "✓ Verified / Verificado";
 }
 
 function renderResources(c) {
   els.resourceList.innerHTML = c.resources.map((r, i) =>
     `<li class="resource-item ${r.verified ? "verified" : "unverified"}">` +
     `<input type="checkbox" data-index="${i}" ${r.verified ? "checked" : ""} ` +
-    `${currentCase.state === "APPROVED_SENT" ? "disabled" : ""} aria-label="Verificado / Verified: ${esc(r.name)}">` +
+    `${currentCase.state === "APPROVED_SENT" ? "disabled" : ""} aria-label="Verified / Verificado: ${esc(r.name)}">` +
     `<div><span class="r-name">${esc(r.name)}</span>` +
     (r.detail ? `<span class="r-meta">${esc(r.detail)}</span>` : "") +
-    `<span class="r-meta">Fuente / Source: ${esc(r.source || "—")}` +
-    (r.lastChecked ? ` · Revisado / Checked: ${esc(r.lastChecked)}` : "") + `</span>` +
-    `<span class="r-state">${r.verified ? esc(verifiedLabel(r)) : "Sin verificar / Not verified"}</span></div></li>`
+    `<span class="r-meta">Source / Fuente: ${esc(r.source || "—")}` +
+    (r.lastChecked ? ` · Checked / Revisado: ${esc(r.lastChecked)}` : "") + `</span>` +
+    `<span class="r-state">${r.verified ? esc(verifiedLabel(r)) : "Not verified / Sin verificar"}</span></div></li>`
   ).join("");
   els.resourceEmpty.hidden = c.resources.length > 0;
   els.resourceList.querySelectorAll('input[type="checkbox"]').forEach((box) => {
@@ -346,10 +346,10 @@ function renderApproval(c) {
   if (c.approval) {
     const a = c.approval;
     els.approvalRecord.innerHTML =
-      `<strong>✓ Aprobado / Approved</strong><br>` +
-      `Por / By: ${esc(a.by || "—")}<br>` +
-      (a.at ? `Cuándo / When: ${esc(a.at)}<br>` : "") +
-      `Cambios / Edits: ${esc(a.edits || "Sin cambios / No edits")}`;
+      `<strong>✓ Approved / Aprobado</strong><br>` +
+      `By / Por: ${esc(a.by || "—")}<br>` +
+      (a.at ? `When / Cuándo: ${esc(a.at)}<br>` : "") +
+      `Edits / Cambios: ${esc(a.edits || "No edits / Sin cambios")}`;
     els.approvalEmpty.hidden = true;
   } else {
     els.approvalRecord.innerHTML = "";
@@ -373,16 +373,16 @@ function renderPatient(c) {
   els.crisisBanner.hidden = !c.crisis;
   let html = "";
   if (c.patientMessage) {
-    html += `<div class="bubble patient"><span class="who">Paciente ficticia / Fictional patient</span>${paragraphs(c.patientMessage)}</div>`;
+    html += `<div class="bubble patient"><span class="who">Fictional patient / Paciente ficticia</span>${paragraphs(c.patientMessage)}</div>`;
   }
   if (c.state === "APPROVED_SENT") {
     const sent = c.sentMessage || els.draftEdit.value || c.draft;
-    html += `<div class="bubble navigator"><span class="who">Elena — Navegadora sintética / Synthetic navigator</span>${paragraphs(sent)}</div>`;
+    html += `<div class="bubble navigator"><span class="who">Elena — Synthetic navigator / Navegadora sintética</span>${paragraphs(sent)}</div>`;
   } else if (c.patientMessage && !c.crisis) {
-    html += `<div class="receipt-note">✓✓ Tu mensaje fue recibido. Tu navegadora lo está revisando. / Your message was received. Your navigator is reviewing it.</div>`;
+    html += `<div class="receipt-note">✓✓ Your message was received. Your navigator is reviewing it. / Tu mensaje fue recibido. Tu navegadora lo está revisando.</div>`;
   }
   els.chatMessages.innerHTML = html ||
-    `<p class="empty-note">Sin mensajes todavía. / No messages yet.</p>`;
+    `<p class="empty-note">No messages yet. / Sin mensajes todavía.</p>`;
 }
 
 /* ============================== approve gate (fix #1) ============================== */
@@ -390,12 +390,12 @@ function renderPatient(c) {
 function gateBlockers() {
   const c = currentCase;
   const blockers = [];
-  if (!c) { blockers.push("Carga un caso primero. / Load a case first."); return blockers; }
-  if (c.state === "APPROVED_SENT") blockers.push("Este caso ya fue aprobado y enviado. / This case was already approved and sent.");
-  if (c.escalated) blockers.push("Caso escalado: solo lo atiende una persona. Sin aprobación aquí. / Escalated case: a human handles it. No approval here.");
-  if (!c.draft || !c.draft.trim()) blockers.push("No hay borrador para aprobar. / There is no draft to approve.");
+  if (!c) { blockers.push("Load a case first. / Carga un caso primero."); return blockers; }
+  if (c.state === "APPROVED_SENT") blockers.push("This case was already approved and sent. / Este caso ya fue aprobado y enviado.");
+  if (c.escalated) blockers.push("Escalated case: a human handles it. No approval here. / Caso escalado: solo lo atiende una persona. Sin aprobación aquí.");
+  if (!c.draft || !c.draft.trim()) blockers.push("There is no draft to approve. / No hay borrador para aprobar.");
   const open = c.resources.filter((r) => !r.verified).length;
-  if (open > 0) blockers.push(`Approve is off until all resources are verified. / Aprobación desactivada hasta verificar todos los recursos. (${open} pendiente${open === 1 ? "" : "s"})`);
+  if (open > 0) blockers.push(`Approve is off until all resources are verified. / Aprobación desactivada hasta verificar todos los recursos. (${open} pending)`);
   return blockers;
 }
 
@@ -406,7 +406,7 @@ function renderGate() {
     els.approveReason.textContent = blockers[0];
     els.approveReason.className = "approve-reason blocked";
   } else {
-    els.approveReason.textContent = "Listo: todos los recursos están verificados. / Ready: all resources are verified.";
+    els.approveReason.textContent = "Ready: all resources are verified. / Listo: todos los recursos están verificados.";
     els.approveReason.className = "approve-reason ready";
   }
 }
@@ -457,7 +457,7 @@ async function onVerifyResource(index, checked, box) {
   if (mode === "golden") {
     c.resources[index].verified = checked;
     renderResources(c); renderGate();
-    setStatus(checked ? "Recurso marcado verificado (ejemplo). / Resource marked verified (sample)." : "");
+    setStatus(checked ? "Resource marked verified (sample). / Recurso marcado verificado (ejemplo)." : "");
     return;
   }
   try {
@@ -466,7 +466,7 @@ async function onVerifyResource(index, checked, box) {
     c.resources[index].verified = checked;
   } catch (e) {
     box.checked = !checked;
-    setStatus("No se pudo guardar la verificación. / Could not save the verification.");
+    setStatus("Could not save the verification. / No se pudo guardar la verificación.");
     return;
   }
   renderResources(c); renderGate();
@@ -480,55 +480,55 @@ els.saveEditBtn.addEventListener("click", async () => {
   if (mode === "golden") {
     c.draft = text;
     renderCase();
-    setStatus("Cambios guardados (ejemplo). / Edit saved (sample).");
+    setStatus("Edit saved (sample). / Cambios guardados (ejemplo).");
     return;
   }
   try {
     const updated = await api(`/api/cases/${encodeURIComponent(c.id)}/edit`, { reply: text });
     if (updated && (updated.draft_text || updated.draft || updated.id)) {
-      const keep = draftEdited; loadCase(updated, "live", "Cambios guardados. / Edit saved."); draftEdited = keep; renderGate();
+      const keep = draftEdited; loadCase(updated, "live", "Edit saved. / Cambios guardados."); draftEdited = keep; renderGate();
     } else {
-      c.draft = text; renderCase(); setStatus("Cambios guardados. / Edit saved.");
+      c.draft = text; renderCase(); setStatus("Edit saved. / Cambios guardados.");
     }
   } catch (e) {
-    setStatus("No se pudieron guardar los cambios. / Could not save the edit.");
+    setStatus("Could not save the edit. / No se pudieron guardar los cambios.");
   }
 });
 
 els.approveBtn.addEventListener("click", async () => {
   const c = currentCase;
   if (!c || gateBlockers().length) return;
-  const name = els.navigatorName.value.trim() || "Navegadora";
+  const name = els.navigatorName.value.trim() || "Navigator";
   const finalText = els.draftEdit.value;
   const editNote = draftEdited || finalText.trim() !== (firstDraft || "").trim()
-    ? "La navegadora editó el borrador antes de aprobar. / The navigator edited the draft before approving."
-    : "Sin cambios. / No edits.";
+    ? "The navigator edited the draft before approving. / La navegadora editó el borrador antes de aprobar."
+    : "No edits. / Sin cambios.";
   if (mode === "golden") {
-    c.approval = { by: name, at: new Date().toLocaleString("es-US"), edits: editNote };
+    c.approval = { by: name, at: new Date().toLocaleString("en-US"), edits: editNote };
     c.sentMessage = finalText;
     c.draft = finalText;
     c.state = "APPROVED_SENT";
     renderCase();
-    setStatus("Aprobado y enviado (ejemplo). / Approved and sent (sample).");
+    setStatus("Approved and sent (sample). / Aprobado y enviado (ejemplo).");
     return;
   }
   try {
     const updated = await api(`/api/cases/${encodeURIComponent(c.id)}/approve`, { navigator_name: name });
     if (updated && (updated.id || updated.state || updated.status)) {
-      loadCase(updated, "live", "Aprobado y enviado. / Approved and sent.");
+      loadCase(updated, "live", "Approved and sent. / Aprobado y enviado.");
       if (!currentCase.approval) {
-        currentCase.approval = { by: name, at: new Date().toLocaleString("es-US"), edits: editNote };
+        currentCase.approval = { by: name, at: new Date().toLocaleString("en-US"), edits: editNote };
         currentCase.state = "APPROVED_SENT"; currentCase.sentMessage = finalText;
         renderCase();
       }
     } else {
-      c.approval = { by: name, at: new Date().toLocaleString("es-US"), edits: editNote };
+      c.approval = { by: name, at: new Date().toLocaleString("en-US"), edits: editNote };
       c.sentMessage = finalText; c.state = "APPROVED_SENT";
       renderCase();
-      setStatus("Aprobado y enviado. / Approved and sent.");
+      setStatus("Approved and sent. / Aprobado y enviado.");
     }
   } catch (e) {
-    setStatus("No se pudo aprobar. Revisa la conexión. / Could not approve. Check the connection.");
+    setStatus("Could not approve. Check the connection. / No se pudo aprobar. Revisa la conexión.");
   }
 });
 
@@ -537,22 +537,22 @@ els.glossToggle.addEventListener("change", () => {
 });
 
 $("loadGoldenBtn").addEventListener("click", () =>
-  loadCase(JSON.parse(JSON.stringify(GOLDEN_CASE)), "golden", "Caso de ejemplo cargado. / Golden case loaded."));
+  loadCase(JSON.parse(JSON.stringify(GOLDEN_CASE)), "golden", "Golden case loaded. / Caso de ejemplo cargado."));
 $("loadCrisisBtn").addEventListener("click", () =>
-  loadCase(JSON.parse(JSON.stringify(GOLDEN_CRISIS)), "golden", "Caso de crisis cargado: sin borrador, solo humano. / Crisis case loaded: no draft, human only."));
+  loadCase(JSON.parse(JSON.stringify(GOLDEN_CRISIS)), "golden", "Crisis case loaded: no draft, human only. / Caso de crisis cargado: sin borrador, solo humano."));
 
 async function refreshCaseList() {
   try {
     const data = await api("/api/cases");
     const list = Array.isArray(data) ? data : (data.cases || []);
-    els.caseSelect.innerHTML = `<option value="">— Ejemplo local / Golden sample —</option>` +
+    els.caseSelect.innerHTML = `<option value="">— Golden sample / Ejemplo local —</option>` +
       list.map((x) => {
         const id = pick(x, ["id", "case_id"], "");
-        return id ? `<option value="${esc(id)}">Caso / Case ${esc(id)}</option>` : "";
+        return id ? `<option value="${esc(id)}">Case / Caso ${esc(id)}</option>` : "";
       }).join("");
-    setStatus(list.length ? "Casos en vivo cargados. / Live cases loaded." : "Sin casos en vivo todavía. / No live cases yet.");
+    setStatus(list.length ? "Live cases loaded. / Casos en vivo cargados." : "No live cases yet. / Sin casos en vivo todavía.");
   } catch (e) {
-    setStatus("Sin conexión con el servidor. El ejemplo local funciona sin conexión. / Backend not reachable. The golden sample works offline.");
+    setStatus("Backend not reachable. The golden sample works offline. / Sin conexión con el servidor. El ejemplo local funciona sin conexión.");
   }
 }
 $("refreshCasesBtn").addEventListener("click", refreshCaseList);
@@ -561,9 +561,9 @@ els.caseSelect.addEventListener("change", async () => {
   if (!id) { loadCase(JSON.parse(JSON.stringify(GOLDEN_CASE)), "golden"); return; }
   try {
     const data = await api(`/api/cases/${encodeURIComponent(id)}`);
-    loadCase(data.case || data, "live", "Caso en vivo cargado. / Live case loaded.");
+    loadCase(data.case || data, "live", "Live case loaded. / Caso en vivo cargado.");
   } catch (e) {
-    setStatus("No se pudo cargar ese caso. / Could not load that case.");
+    setStatus("Could not load that case. / No se pudo cargar ese caso.");
   }
 });
 
@@ -571,18 +571,18 @@ els.newCaseForm.addEventListener("submit", async (ev) => {
   ev.preventDefault();
   const msg = els.patientInput.value.trim();
   if (!msg) return;
-  setStatus("Enviando… / Sending…");
+  setStatus("Sending… / Enviando…");
   try {
     const data = await api("/api/cases", { message: msg, language: els.patientLang.value });
     let created = data.case || data;
     if (created && !created.draft_text && !created.draft && created.id) {
       try { created = (await api(`/api/cases/${encodeURIComponent(created.id)}`)).case || created; } catch (e) { /* keep created */ }
     }
-    loadCase(created, "live", "Caso nuevo creado. / New case created.");
+    loadCase(created, "live", "New case created. / Caso nuevo creado.");
     els.patientInput.value = "";
     refreshCaseList();
   } catch (e) {
-    setStatus("El servidor no responde. Prueba el caso de ejemplo. / Backend not reachable. Try the golden case.");
+    setStatus("Backend not reachable. Try the golden case. / El servidor no responde. Prueba el caso de ejemplo.");
   }
 });
 
@@ -591,5 +591,5 @@ els.newCaseForm.addEventListener("submit", async (ev) => {
 // The demo opens on the navigator's screen with a complete case (fix #4),
 // and it must work even with the backend down — so golden loads first.
 loadCase(JSON.parse(JSON.stringify(GOLDEN_CASE)), "golden",
-  "Ejemplo listo. Verifica el recurso pendiente para activar la aprobación. / Sample ready. Verify the pending resource to enable approval.");
+  "Sample ready. Verify the pending resource to enable approval. / Ejemplo listo. Verifica el recurso pendiente para activar la aprobación.");
 refreshCaseList();
