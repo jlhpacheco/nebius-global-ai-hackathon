@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Podrá Navega — Panel de la navegadora / Navigator Panel</title>
+<title>Podrá Navega — Navigator Panel / Panel de la navegadora</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="topbar">
   <div class="brand">
-    <p class="eyebrow">Latinas Contra Cancer — Navegación de pacientes / Patient navigation</p>
+    <p class="eyebrow">Latinas Contra Cancer — Patient navigation / Navegación de pacientes</p>
     <h1>Podrá <span class="navega">Navega</span></h1>
-    <p>La IA prepara. La navegadora decide. / The AI drafts. The navigator decides.</p>
+    <p>The AI drafts. The navigator decides. / La IA prepara. La navegadora decide.</p>
   </div>
   <div class="topbar-actions">
-    <span class="mode-badge" id="modeBadge">Ejemplo / Golden sample</span>
-    <button type="button" id="loadGoldenBtn">Cargar caso de ejemplo / Load golden case</button>
-    <button type="button" id="loadCrisisBtn">Ver caso de crisis / Crisis case</button>
+    <span class="mode-badge" id="modeBadge">Golden sample / Ejemplo</span>
+    <button type="button" id="loadGoldenBtn">Load golden case / Cargar caso de ejemplo</button>
+    <button type="button" id="loadCrisisBtn">Crisis case / Ver caso de crisis</button>
   </div>
 </header>
 
@@ -25,45 +25,45 @@
 
   <!-- ============ LEFT: NAVIGATOR PANEL (the hero — fix #4) ============ -->
   <section class="panel panel-navigator" aria-labelledby="navTitle">
-    <h2 id="navTitle">Panel de la navegadora / Navigator Panel</h2>
-    <p class="panel-sub">Revisa el borrador, verifica los recursos y aprueba. Nada llega a la paciente sin tu aprobación.<br>
-    <span class="hint">Review the draft, verify the resources, then approve. Nothing reaches the patient without your approval.</span></p>
+    <h2 id="navTitle">Navigator Panel / Panel de la navegadora</h2>
+    <p class="panel-sub">Review the draft, verify the resources, then approve. Nothing reaches the patient without your approval.<br>
+    <span class="hint">Revisa el borrador, verifica los recursos y aprueba. Nada llega a la paciente sin tu aprobación.</span></p>
 
     <p class="synthetic-note">
-      <strong>Elena — Navegadora sintética de demostración / Synthetic Demo Navigator.</strong>
-      Sintética — no es una persona real. / Synthetic — not a real person.
-      En el uso real, una navegadora de verdad aprueba cada mensaje. / In real use, a real human navigator approves every message.
+      <strong>Elena — Synthetic Demo Navigator / Navegadora sintética de demostración.</strong>
+      Synthetic — not a real person. / Sintética — no es una persona real.
+      In real use, a real human navigator approves every message. / En el uso real, una navegadora de verdad aprueba cada mensaje.
     </p>
 
     <div class="case-picker">
       <div class="grow">
-        <label for="caseSelect">Caso en vivo / Live case</label>
+        <label for="caseSelect">Live case / Caso en vivo</label>
         <select id="caseSelect">
-          <option value="">— Ejemplo local / Golden sample —</option>
+          <option value="">— Golden sample / Ejemplo local —</option>
         </select>
       </div>
-      <button type="button" class="btn-small" id="refreshCasesBtn">Actualizar / Refresh</button>
+      <button type="button" class="btn-small" id="refreshCasesBtn">Refresh / Actualizar</button>
     </div>
 
     <div class="case-header">
-      <span class="case-id" id="caseIdText">Caso / Case —</span>
+      <span class="case-id" id="caseIdText">Case / Caso —</span>
       <span class="state-badge" id="stateBadge">—</span>
-      <span class="fictional-pill">Paciente ficticio / Fictional patient</span>
+      <span class="fictional-pill">Fictional patient / Paciente ficticio</span>
     </div>
     <p class="status-line" id="statusLine" aria-live="polite"></p>
 
     <div class="escalation-box" id="escalationBox" hidden>
-      <strong>Caso escalado — solo humano / Escalated case — human only.</strong>
+      <strong>Escalated case — human only. / Caso escalado — solo humano.</strong>
       <span id="escalationReason"></span>
     </div>
 
     <section class="block" aria-labelledby="draftTitle">
-      <h3 id="draftTitle">Borrador de la IA / AI draft</h3>
+      <h3 id="draftTitle">AI draft / Borrador de la IA</h3>
       <div id="draftArea">
         <div class="draft-text" id="draftText"></div>
         <div class="switch-row">
           <input type="checkbox" id="glossToggle" checked>
-          <label for="glossToggle">Mostrar traducción al inglés / Show English gloss</label>
+          <label for="glossToggle">Show English gloss / Mostrar traducción al inglés</label>
         </div>
         <div class="gloss-block" id="glossBlock">
           <div class="gloss-label">ENGLISH GLOSS</div>
@@ -71,50 +71,50 @@
         </div>
       </div>
       <div class="no-draft" id="noDraftBox" hidden>
-        Sin borrador. Este caso no recibe texto de la IA. / No AI draft. This case gets no AI text.
+        No AI draft. This case gets no AI text. / Sin borrador. Este caso no recibe texto de la IA.
       </div>
     </section>
 
     <section class="block" aria-labelledby="barrierTitle">
-      <h3 id="barrierTitle">Barreras detectadas / Barriers found</h3>
+      <h3 id="barrierTitle">Barriers found / Barreras detectadas</h3>
       <ul class="barrier-list" id="barrierList"></ul>
-      <p class="empty-note" id="barrierEmpty" hidden>Sin barreras registradas. / No barriers recorded.</p>
+      <p class="empty-note" id="barrierEmpty" hidden>No barriers recorded. / Sin barreras registradas.</p>
     </section>
 
     <section class="block" aria-labelledby="resourceTitle">
-      <h3 id="resourceTitle">Recursos — verifica cada uno / Resources — verify each one</h3>
+      <h3 id="resourceTitle">Resources — verify each one / Recursos — verifica cada uno</h3>
       <ul class="resource-list" id="resourceList"></ul>
-      <p class="empty-note" id="resourceEmpty" hidden>Este caso no cita recursos. / This case cites no resources.</p>
+      <p class="empty-note" id="resourceEmpty" hidden>This case cites no resources. / Este caso no cita recursos.</p>
     </section>
 
     <section class="block" aria-labelledby="approveTitle">
-      <h3 id="approveTitle">Editar y aprobar / Edit &amp; approve</h3>
-      <label for="draftEdit">Texto final para la paciente / Final text for the patient</label>
+      <h3 id="approveTitle">Edit &amp; approve / Editar y aprobar</h3>
+      <label for="draftEdit">Final text for the patient / Texto final para la paciente</label>
       <textarea id="draftEdit" rows="7"></textarea>
       <div class="grid-2" style="margin-top:0.8rem;">
         <div>
-          <label for="navigatorName">Tu nombre / Your name</label>
+          <label for="navigatorName">Your name / Tu nombre</label>
           <input type="text" id="navigatorName" value="Elena — Synthetic Demo Navigator / Navegadora sintética de demostración" autocomplete="off">
         </div>
-        <button type="button" class="btn-small" id="saveEditBtn">Guardar cambios / Save edit</button>
+        <button type="button" class="btn-small" id="saveEditBtn">Save edit / Guardar cambios</button>
       </div>
       <p class="approve-reason blocked" id="approveReason">Approve is off until all resources are verified.</p>
       <button type="button" class="btn-primary" id="approveBtn" disabled>
-        Aprobar y enviar / Approve &amp; send
+        Approve &amp; send / Aprobar y enviar
       </button>
     </section>
 
     <section class="block" aria-labelledby="recordTitle">
-      <h3 id="recordTitle">Registro de aprobación / Approval record</h3>
+      <h3 id="recordTitle">Approval record / Registro de aprobación</h3>
       <div class="approval-record" id="approvalRecord"></div>
-      <p class="empty-note" id="approvalEmpty">Todavía sin aprobación. / Not approved yet.</p>
+      <p class="empty-note" id="approvalEmpty">Not approved yet. / Todavía sin aprobación.</p>
     </section>
 
     <footer class="ledger" aria-labelledby="ledgerTitle">
-      <h3 id="ledgerTitle">RECIBOS — MODELOS Y COSTO / RECEIPTS — MODELS &amp; COST</h3>
+      <h3 id="ledgerTitle">RECEIPTS — MODELS &amp; COST / RECIBOS — MODELOS Y COSTO</h3>
       <table>
         <thead>
-          <tr><th>Modelo / Model</th><th>Tarea / Task</th><th class="num">Tokens</th><th class="num">Costo est. / Est. cost</th></tr>
+          <tr><th>Model / Modelo</th><th>Task / Tarea</th><th class="num">Tokens</th><th class="num">Est. cost / Costo est.</th></tr>
         </thead>
         <tbody id="ledgerBody"></tbody>
       </table>
@@ -123,33 +123,33 @@
 
   <!-- ============ RIGHT: PATIENT VIEW (secondary) ============ -->
   <section class="panel panel-patient" aria-labelledby="patientTitle">
-    <h2 id="patientTitle">Vista de la paciente / Patient view</h2>
-    <p class="panel-sub">Lo que ve la paciente en su teléfono.<br>
-    <span class="hint">What the patient sees on her phone. The reply appears only after approval.</span></p>
+    <h2 id="patientTitle">Patient view / Vista de la paciente</h2>
+    <p class="panel-sub">What the patient sees on her phone. The reply appears only after approval.<br>
+    <span class="hint">Lo que ve la paciente en su teléfono. La respuesta aparece solo después de la aprobación.</span></p>
 
     <div class="crisis-banner" id="crisisBanner" hidden role="alert">
-      <strong>🚨 Si esto es una emergencia, llama al 911 ahora.</strong>
-      Si tienes fiebre, sangrado o te sientes muy mal, llama al 911 o a tu equipo de cuidado ahora. No esperes un mensaje.
-      <span class="en">If this is an emergency, call 911 now. If you have fever, bleeding, or feel very ill, call 911 or your care team now. Do not wait for a message.</span>
+      <strong>🚨 If this is an emergency, call 911 now.</strong>
+      If you have fever, bleeding, or feel very ill, call 911 or your care team now. Do not wait for a message.
+      <span class="en">Si esto es una emergencia, llama al 911 ahora. Si tienes fiebre, sangrado o te sientes muy mal, llama al 911 o a tu equipo de cuidado ahora. No esperes un mensaje.</span>
     </div>
 
     <div class="chat" id="chatMessages" aria-live="polite"></div>
 
     <p class="safety-line">
-      Paciente ficticio / Fictional patient. Esta herramienta no da consejos médicos.
-      Una navegadora revisa cada mensaje.<br>
-      <span class="hint">This tool does not give medical advice. A navigator reviews every message.</span>
+      Fictional patient / Paciente ficticio. This tool does not give medical advice.
+      A navigator reviews every message.<br>
+      <span class="hint">Esta herramienta no da consejos médicos. Una navegadora revisa cada mensaje.</span>
     </p>
 
     <form class="new-case" id="newCaseForm">
-      <label for="patientInput">Escribir como la paciente (demostración) / Write as the patient (demo)</label>
-      <textarea id="patientInput" rows="3" placeholder="Ejemplo: No entiendo qué es una biopsia y no tengo transporte…"></textarea>
+      <label for="patientInput">Write as the patient (demo) / Escribir como la paciente (demostración)</label>
+      <textarea id="patientInput" rows="3" placeholder="Example: I don't understand what a biopsy is and I don't have a ride…"></textarea>
       <div class="row">
-        <select id="patientLang" aria-label="Idioma / Language">
-          <option value="es" selected>Español</option>
-          <option value="en">English</option>
+        <select id="patientLang" aria-label="Language / Idioma">
+          <option value="en" selected>English</option>
+          <option value="es">Español</option>
         </select>
-        <button type="submit" class="btn-small">Enviar mensaje / Send message</button>
+        <button type="submit" class="btn-small">Send message / Enviar mensaje</button>
       </div>
     </form>
   </section>
@@ -157,8 +157,8 @@
 </main>
 
 <footer class="site-footer">
-  <p class="foot-main"><strong>Podrá Navega</strong> — una herramienta para Latinas Contra Cancer / a tool for Latinas Contra Cancer</p>
-  <p class="foot-note">Pacientes ficticios en esta demostración. Esta herramienta no da consejos médicos; una navegadora revisa cada mensaje. / Fictional patients in this demo. This tool does not give medical advice; a navigator reviews every message.</p>
+  <p class="foot-main"><strong>Podrá Navega</strong> — a tool for Latinas Contra Cancer / una herramienta para Latinas Contra Cancer</p>
+  <p class="foot-note">Fictional patients in this demo. This tool does not give medical advice; a navigator reviews every message. / Pacientes ficticios en esta demostración. Esta herramienta no da consejos médicos; una navegadora revisa cada mensaje.</p>
 </footer>
 
 <script src="app.js"></script>
