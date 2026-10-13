@@ -17,8 +17,8 @@ from . import barriers as barriers_mod
 from .token_factory import LEDGER
 
 GOLDEN_MESSAGE = (
-    "Me dijeron que necesito una biopsia y no entiendo, "
-    "y no tengo transporte."
+    "They told me I need a biopsy and I don't understand, "
+    "and I don't have a ride."
 )
 
 
