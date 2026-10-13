@@ -15,9 +15,10 @@ Example: `python3 -m http.server -d app/static 8000`
      is no draft. The blocking reason is printed next to the button — the
      resource blocker uses the exact line "Approve is off until all resources
      are verified."
-   - Crisis cases render with no draft area content ("Sin borrador") and the
-     patient view shows a red emergency banner in Spanish (call 911 / your
-     care team now), rendered from case state alone. Try "Ver caso de crisis."
+   - Crisis cases render with no draft area content ("No AI draft") and the
+     patient view shows a red emergency banner in English first (call 911 /
+     your care team now), Spanish below, rendered from case state alone.
+     Try "Crisis case."
 2. **Barrier-catch eval (Fix 2)** — the navigator panel shows the barrier
    checklist as a first-class artifact: each barrier with its evidence quote
    from the patient's own words and who found it (first draft vs. Ultra
@@ -31,16 +32,17 @@ Example: `python3 -m http.server -d app/static 8000`
    patient chat is the secondary right panel. The page loads with a complete
    case already on the navigator's screen.
 5. **English gloss (Fix 5)** — every draft renders with a toggleable English
-   gloss block next to it ("Mostrar traducción al inglés / Show English
-   gloss", on by default), and all UI chrome is labeled ES/EN, so a judge who
+   gloss block next to it ("Show English gloss / Mostrar traducción al inglés",
+   on by default), and all UI chrome is labeled EN/ES (English first), so a judge who
    does not read Spanish can verify fidelity live.
-6. **"Fictional patients" on screen (Fix 6)** — the pill "Paciente ficticio /
-   Fictional patient" is always visible in the case header, and the label is
+6. **"Fictional patients" on screen (Fix 6)** — the pill "Fictional patient /
+   Paciente ficticio" is always visible in the case header, and the label is
    repeated in the patient panel and on the patient's own chat bubble.
 
 ## Modes
 
-- **Golden sample (default, fully local):** the biopsy + no-transport case,
+- **Golden sample (default, fully local):** the biopsy + no-ride case (English
+  patient; the live pipeline still drafts in Spanish for Spanish messages),
   with draft, English gloss, three barriers (one found only by the Ultra
   audit), one verified and one unverified resource, and a model/cost ledger.
   The Approve button starts disabled; tick the transport resource to enable
@@ -65,7 +67,7 @@ Example: `python3 -m http.server -d app/static 8000`
   The crisis red is deliberately NOT rebranded.
 - Large type (17px base), generous spacing, short bilingual labels — built
   for a dyslexic reader and for judges scanning fast.
-- The patient view shows only a neutral receipt ("Tu mensaje fue recibido")
+- The patient view shows only a neutral receipt ("Your message was received")
   before approval — never unapproved AI content — and the approved reply
   appears there only after the navigator approves.
 - The footer of the navigator panel is a receipts table: model, task,
