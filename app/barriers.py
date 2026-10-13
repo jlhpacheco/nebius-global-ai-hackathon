@@ -308,20 +308,23 @@ def draft_reply(text: str, language: str, barriers: list[dict]) -> dict:
 
 _RESOURCE_DIRECTORY = {
     "transport": {
-        "name": "VTA Paratransit — transporte para citas médicas "
+        "name": "VTA Paratransit — medical appointment rides "
+                "(sample directory) / transporte para citas médicas "
                 "(directorio de muestra)",
         "type": "transport",
         "source_url": "https://www.vta.org/services/paratransit",
     },
     "cost": {
-        "name": "CancerCare — ayuda financiera (directorio de muestra)",
+        "name": "CancerCare — financial help (sample directory) / "
+                "ayuda financiera (directorio de muestra)",
         "type": "financial",
         "source_url": "https://www.cancercare.org/financial",
     },
 }
 
 _SUPPORT_RESOURCE = {
-    "name": "Latinas Contra Cancer — grupo de apoyo (directorio de muestra)",
+    "name": "Latinas Contra Cancer — support group (sample directory) / "
+            "grupo de apoyo (directorio de muestra)",
     "type": "support_group",
     "source_url": "https://www.latinascontracancer.org/",
 }
