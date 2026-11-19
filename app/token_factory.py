@@ -4,11 +4,14 @@ Design rules (from ARCHITECTURE.md and the red-team fixes):
 
 - Token Factory only. OpenAI-compatible API at
   https://api.tokenfactory.nebius.com/v1/ with the key in env NEBIUS_API_KEY.
-- Model routing: Nano / Super do the volume work (drafts, glosses);
-  Ultra is rationed to ONE hard pass per case (the barrier audit).
+- Model routing: the Nano / Super tiers do the volume work (drafts,
+  glosses) — since the Nov 19, 2026 swap both tiers run on
+  Nemotron-3_5-Lightning (the original Nano and Super models retired
+  Nov 9, 2026); Ultra is rationed to ONE hard pass per case (the
+  barrier audit).
 - EVERY call appends to the ledger: model, tokens in/out, estimated cost.
-  Prices (per 1M tokens, in/out): Ultra $1.00/$3.00, Super $0.30/$0.90,
-  Nano $0.06/$0.24.
+  Prices (per 1M tokens, in/out): Ultra $1.00/$3.00,
+  Lightning $0.06/$0.24.
 - DEMO MODE: if NEBIUS_API_KEY is not set, no network call is made. The
   caller supplies a deterministic rule-based ``demo_response`` which is
   used verbatim, and the ledger entry is recorded with model="demo-mode"
@@ -24,18 +27,19 @@ from datetime import datetime, timezone
 
 BASE_URL = "https://api.tokenfactory.nebius.com/v1/"
 
-# Exact IDs as returned by GET /v1/models — live-verified Oct 11, 2026.
-# Casing matters: the Nano ID is NOT the lowercase form used in blogs.
+# Exact IDs as returned by GET /v1/models. Nano/Super tiers swapped to
+# Nemotron-3_5-Lightning on Nov 19, 2026 (originals retired Nov 9, 2026);
+# Lightning + Ultra IDs live-verified against GET /v1/models Nov 19, 2026.
 MODELS = {
-    "nano": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "super": "nvidia/nemotron-3-super-120b-a12b",
+    "nano": "nvidia/Nemotron-3_5-Lightning",
+    "super": "nvidia/Nemotron-3_5-Lightning",
     "ultra": "nvidia/Nemotron-3-Ultra-550b-a55b",
 }
 
-# USD per 1M tokens: (input, output)
+# USD per 1M tokens: (input, output). Lightning price read from Nebius's
+# own Nemotron models page Nov 19, 2026: $0.06 in / $0.24 out.
 PRICES = {
     MODELS["nano"]: (0.06, 0.24),
-    MODELS["super"]: (0.30, 0.90),
     MODELS["ultra"]: (1.00, 3.00),
     "demo-mode": (0.0, 0.0),
 }
